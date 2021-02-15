@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Popup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans';
+      font-weight: 300;
+      overflow: hidden;
+    }
+
+    .title {
+      color: #db5b33;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    .popup-background {
+      display: none;
+      background: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .popup-background.active {
+      display: block;
+    }
+
+    .popup {
+      position: relative;
+      background: #FFF;
+      max-width: 520px;
+      min-height: 200px;
+      padding: 30px 20px 10px 20px;
+      z-index: 9999;
+      margin: 0 auto;
+      top: 20%;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .active .popup {
+      display: block;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+    }
+
+    /* 팝업을 위한 CSS */
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="title">Popup</h1>
+  </header>
+  <main class="main">
+    <!-- 팝업을 위한 HTML -->
+    <button class="toggle-btn">toggle popup</button>
+    <p class="popup-message"></p>
+    <div class="popup-background">
+      <div class="popup">
+        <h2 class="title">Hello!</h2>
+        <p>옛날 옛날에 남양주시 와부읍 덕소리에서 자란 한 소년이 있었어요 아이는 주머니에 아무것도 없었지만 어머니의 사랑은 가득해 항상 웃음 짓던 소년이였죠 어느날 그 소년 앞에 금을 두른 부자가
+          나타났답니다 부자는 그에게 물었어요 너에게 미래를 줄 테니 지금 이 순간을 나와 바꾸지 않겠니</p>
+        <input type="text" id="popup-input">
+        <label for="popup-input"></label>
+        <button class="submit-btn">ok</button>
+        <button class="cancel-btn">Cancel</button>
+        <span class="close-btn">✕</span>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const $toggleBtn = document.querySelector('.toggle-btn');
+    const $popupBackground = document.querySelector('.popup-background');
+    const $popupInput = document.getElementById('popup-input');
+    const $submitBtn = document.querySelector('.submit-btn');
+    const $cancelBtn = document.querySelector('.cancel-btn');
+    const $closeBtn = document.querySelector('.close-btn');
+
+    const $popupMessage = document.querySelector('.popup-message');
+
+    $toggleBtn.addEventListener('click', () => {
+      $popupBackground.classList.add('active');
+      $popupInput.focus();
+    });
+
+    $popupInput.addEventListener('keyup', e => {
+      if (e.key !== 'Enter') return;
+      $popupMessage.textContent = `from popup : ${e.target.value}`;
+      $popupBackground.classList.remove('active');
+    });
+
+    $submitBtn.addEventListener('click', () => {
+      $popupMessage.textContent = `from popup : ${$popupInput.value}`;
+      $popupBackground.classList.remove('active');
+    });
+
+    $cancelBtn.addEventListener('click', () => {
+      $popupBackground.classList.remove('active');
+    });
+
+    $closeBtn.addEventListener('click', () => {
+      $popupBackground.classList.remove('active');
+    });
+
+    $popupBackground.addEventListener('click', () => {
+      $popupBackground.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
